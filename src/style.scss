@@ -230,6 +230,32 @@ $maxCaptionHeight: 150px;
     no-repeat center;
 }
 
+.rotateLeftButton,
+.rotateRightButton {
+  position: relative;
+  background: transparent;
+  > svg {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+}
+
+.rotateLeftButton {
+  transform: scaleX(-1);
+}
+
+.rotateRightButton {
+  width: 30px;
+  height: 30px;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMTYgMTYiPiAgPHBhdGggZmlsbD0iI2RkZCIgZD0iTTE2IDdWM2wtMS4xIDEuMUMxMy42IDEuNiAxMSAwIDggMCAzLjYgMCAwIDMuNiAwIDhzMy42IDggOCA4YzIuNCAwIDQuNi0xLjEgNi0yLjhsLTEuNS0xLjNDMTEuNCAxMy4yIDkuOCAxNCA4IDE0Yy0zLjMgMC02LTIuNy02LTZzMi43LTYgNi02YzIuNCAwIDQuNSAxLjUgNS41IDMuNUwxMiA3aDR6Ii8+PC9zdmc+') no-repeat center;
+}
+
 .outerAnimating {
   animation-name: closeWindow;
 }
