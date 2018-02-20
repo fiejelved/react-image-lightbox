@@ -246,6 +246,13 @@ $maxCaptionHeight: 150px;
   }
 }
 
+button {
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
 .rotateLeftButton {
   transform: scaleX(-1);
 }
