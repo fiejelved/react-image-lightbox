@@ -77,25 +77,32 @@ class ReactImageLightbox extends Component {
   }
 
   // Request to transition to the previous image
-  static getTransform({ x = 0, y = 0, zoom = 1, width, targetWidth, rotate = 0 }) {
-    let nextX = x;
+  static getTransform({ x = null, y = null, zoom = null, rotate = 0 }) {
     const transforms = [];
     const isOldIE = ieVersion < 10;
     const windowWidth = getWindowWidth();
-    if (width > windowWidth) {
-      nextX += (windowWidth - width) / 2;
+    if (x !== null || y !== null) {
+        transforms.push(isOldIE ?
+          `translate(${x || 0}px,${y || 0}px)` :
+          `translate3d(${x || 0}px,${y || 0}px,0)`
+        )
+      };
+
+    if (zoom !== null) {
+      transforms.push(isOldIE ?
+        `scale(${zoom})` :
+        `scale3d(${zoom},${zoom},1)`
+      );
     }
 
     if (rotate !== 0) {
       transforms.push(`rotate(${rotate}deg)`);
     }
-    const scaleFactor = zoom * (targetWidth / width);
 
-    return isOldIE
-      ? { msTransform: `translate(${nextX}px,${y}px) scale(${scaleFactor})` }
-      : {
-          transform: `translate3d(${nextX}px,${y}px,0) scale3d(${scaleFactor},${scaleFactor},1)`,
-        };
+    return {
+      [isOldIE ? 'msTransform' : 'transform']:
+        transforms.length === 0 ? 'none' : transforms.join(' '),
+    }
   }
 
   static loadStyles() {
@@ -465,9 +472,8 @@ class ReactImageLightbox extends Component {
 
   changeRotation(angle) {
     this.setState({rotate: this.state.rotate + angle});
-      if (this.props.onImageRotate) {
-       this.props.onImageRotate(angle);
-    }
+    this.props.onImageRotate(angle);
+    console.log('rotate')
   }
 
   // Change zoom level
